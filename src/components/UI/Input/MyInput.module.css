@@ -1,0 +1,16 @@
+.MyInput {
+  width: 100%;
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: 3px solid transparent;
+}
+
+.MyInput:hover,
+.MyInput:focus {
+  border: 3px solid teal;
+}
+
+.MyInput:focus {
+  outline: none;
+}
+

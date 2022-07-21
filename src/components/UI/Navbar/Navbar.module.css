@@ -1,0 +1,39 @@
+.Navbar {
+    padding: 10px;
+    background: linear-gradient(0deg, rgba(51,51,51,1) 35%, rgba(133,133,133,1) 100%);
+}
+
+.Navbar__list {
+    display: flex;
+    width: 800px;
+    margin: 0 auto;
+    list-style: none;
+}
+
+.Navbar__item {
+    width: 100%;
+    border-radius: 25px;
+}
+
+.Navbar__link {
+    display: block;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 24px;
+    text-decoration: none;
+    color: bisque;
+}
+
+.Navbar__link:active {
+    text-shadow: 2px 2px 2px black;
+}
+
+.Navbar__item:hover {
+    background-color: rgba(0,0,0,0.5);
+    transition: 0.5s;
+}
+
+.Navbar__item:active {
+    background-color: rgba(255,255,255,0.5);
+    transform: scale(1.5);
+}

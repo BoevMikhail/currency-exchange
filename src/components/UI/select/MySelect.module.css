@@ -1,0 +1,10 @@
+.MySelect {
+  padding: 10px 20px;
+  text-align: center;
+  border: 3px solid transparent;
+}
+
+.MySelect:hover,
+.MySelect:active {
+  border: 3px solid teal;
+}
