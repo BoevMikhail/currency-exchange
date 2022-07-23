@@ -6,7 +6,7 @@ import { CurrencyListContext } from "./context"
 import currencyList from "./API/CurrencyList.json"
 
 function App() {
-  const currList = currencyList.data;
+  const currList = currencyList.rates;
 
   return (
     <CurrencyListContext.Provider value = {{currList}}>

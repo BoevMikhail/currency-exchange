@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { CurrencyListContext } from '../context';
 import MyButton from './UI/button/MyButton'
 import MyInput from './UI/Input/MyInput'
@@ -8,19 +8,19 @@ import { converter } from './utils/converter';
 const ExchangeForm = () => {
   const {currList} = useContext(CurrencyListContext);
 
-  let [request, setRequest] = useState('');
+  let request = useRef();
   let [result, setResult] = useState('Result');
 
   const exchange = () => {
-    setResult(converter(request, currList));
+    setResult(converter(request.current.value, currList));
   }
 
 
   return (
     <div className='ExchangeForm'>
-      <MyInput onChange={(e) => {setRequest(e.target.value)}} placeholder='Enter: Amount, Base currency and Required currency (15 rub in usd)' />
+      <MyInput ref={request} placeholder='Enter: Amount, Base currency and Required currency (15 rub in usd)' />
       <MyButton onClick={exchange} name='Exchange' />
-      <MyTextarea value={result} readonly  />
+      <MyTextarea value={result} readOnly  />
     </div>
   )
 }

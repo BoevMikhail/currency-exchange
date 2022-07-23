@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { getList } from '../API/RatesService';
 import CurrencyList from '../components/CurrencyList';
 import MySelect from '../components/UI/select/MySelect';
 import { CurrencyListContext } from '../context'
@@ -7,12 +6,6 @@ import { CurrencyListContext } from '../context'
 const Rates = () => {
   const { currList } = useContext(CurrencyListContext);
   const [currency, setCurrency] = useState("RUB");
-  const [currencyList, setCurrencyList] = useState([]);
-
-  useEffect(() => {
-    setCurrencyList(getList(currency, currList));
-  }, [currency])
-
 
   return (
     <div className='Rates page'>
@@ -25,7 +18,7 @@ const Rates = () => {
         currencyList={currList}
 
       />
-      <CurrencyList currency={currency} currencyList={currencyList} />
+      <CurrencyList currency={currency} currencyList={currList} />
     </div>
   )
 }
