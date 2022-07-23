@@ -23,5 +23,5 @@ export const converter = (messageBody, currencyList) => {
   const exchangeRate = 62.7
   // не забыть написать !!!
 
-  return `${amount} ${baseCurrency} = ${(amount * exchangeRate).toFixed(2)} ${requiredCurrency}`;
+  return `${amount} ${baseCurrency} = ${+(amount * exchangeRate).toFixed(2)} ${requiredCurrency}`;
 }
