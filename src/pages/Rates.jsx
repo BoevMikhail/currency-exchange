@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import CurrencyList from '../components/CurrencyList';
 import MySelect from '../components/UI/select/MySelect';
 import { CurrencyListContext } from '../context'
