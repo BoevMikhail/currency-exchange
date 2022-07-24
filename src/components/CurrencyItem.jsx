@@ -1,9 +1,9 @@
 import React from 'react'
 
-const CurrencyItem = ({ currencyItem, index }) => {
+const CurrencyItem = ({ currencyItem, rate }) => {
   return (
     <div className='CurrencyItem'>
-      <span>{index}</span><span> {currencyItem}</span>
+      <span>{rate}</span><span> {currencyItem}</span>
     </div>
   )
 }

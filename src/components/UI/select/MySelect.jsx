@@ -1,5 +1,5 @@
 import React from 'react'
-import { getExclusiveList } from '../../../API/RatesService'
+import { getExclusiveList } from '../../utils/ListSorting'
 import classes from './MySelect.module.css'
 
 const MySelect = ({ value, onChange, defaultValue, currencyList }) => {
