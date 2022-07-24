@@ -22,7 +22,6 @@ function App() {
     } else {
       setCurrList(JSON.parse(sessionStorage.getItem('list')))
     }
-    console.log(isCurrenciesLoading);
   }, [])
 
 
