@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import classes from './Navbar.module.css';
 
 const Navbar = () => {
@@ -7,10 +7,17 @@ const Navbar = () => {
     <div className={classes.Navbar}>
         <ul className={classes.Navbar__list}>
             <li className={classes.Navbar__item}>
-                <Link className={classes.Navbar__link} to='/exchanger' path='../../../pages/Exchanger.jsx'>Exchanger</Link>
+                <NavLink className={({isActive}) => {
+                  const currClass = [classes.Navbar__link];
+                  if(isActive) currClass.push(classes.Navbar__linkActive);
+                  return currClass.join(' ')}}
+                  to='/exchanger' path='../../../pages/Exchanger.jsx'>Exchanger</NavLink>
             </li>
             <li className={classes.Navbar__item}>
-                <Link className={classes.Navbar__link} to='/rates' path='../../../pages/Rates.jsx' >Rates</Link>
+                <NavLink className={({isActive}) => {
+                  const currClass = [classes.Navbar__link];
+                  if(isActive) currClass.push(classes.Navbar__linkActive);
+                  return currClass.join(' ')}} to='/rates' path='../../../pages/Rates.jsx' >Rates</NavLink>
             </li>
         </ul>
     </div>
