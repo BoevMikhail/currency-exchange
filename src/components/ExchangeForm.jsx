@@ -22,7 +22,7 @@ const ExchangeForm = () => {
 
   return (
     <div className='ExchangeForm'>
-      <MyInput ref={request} placeholder='Enter: Amount, Base currency and Required currency (15 rub in usd)' />
+      <MyInput ref={request} placeholder={document.documentElement.clientWidth < 720 ? '(15 rub in usd)' : 'Enter: Amount, Base currency and Required currency (15 rub in usd)'} />
       <MyButton onClick={exchange} name='Exchange' disabled={isCurrenciesLoading}/>
       <MyTextarea value={result} readOnly  />
     </div>

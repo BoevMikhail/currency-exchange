@@ -16,33 +16,53 @@
 }
 
 .container {
-  width: 800px;
-  height: 100%;
+  display: flex;
+  width: 100%;
+  max-width: 800px;
   margin: 0 auto;
+  flex: 1 0 auto;
 }
 
 .page {
-  padding: 20px 50px;
+  width: 100%;
+  padding: 3% 3%;
   text-align: center;
 }
 
 .page__title {
-  font-size: 50px;
-  margin-bottom: 20px;
+  font-size: 0;
   -webkit-text-stroke: 2px white;
+}
+
+@media screen and (min-width: 500px) {
+  .page__title {
+    font-size: 400%;
+    margin-bottom: 3%;
+  }
+}
+
+.Exchanger {
+  margin: auto;
+}
+
+@media screen and (min-width: 500px) {
+  .Exchanger {
+    margin: 0;
+  }
 }
 
 .ExchangeForm {
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 2em;
   align-items: center;
 }
 
 .CurrencyList {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 10px;
+  min-width: 300px;
   margin-top: 20px;
   padding: 10px;
   background-color: rgb(168, 168, 168);
@@ -52,17 +72,17 @@
 .CurrencyItem {
   display: flex;
   justify-content: space-between;
-  padding: 0 15px;
+  padding: 0 1em;
   line-height: 1.5em;
   text-align: center;
   border-bottom: 2px solid black;
 }
 
 .CurrencyItem span {
-  font-size: 20px;
+  font-size: 1.25em;
 }
 
 .Rates__SelectTitle {
   margin-right: 10px;
-  font-size: 20px;
+  font-size: 1.25em;
 }
