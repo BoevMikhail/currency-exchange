@@ -1,0 +1,10 @@
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  min-width: 300px;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: rgb(168, 168, 168);
+  border-radius: 20px;
+}

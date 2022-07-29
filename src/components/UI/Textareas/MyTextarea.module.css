@@ -1,4 +1,4 @@
-.MyTextarea {
+.textarea {
   width: 100%;
   min-width: 300px;
   height: 100px;
@@ -13,10 +13,10 @@
   overflow: hidden;
 }
 
-.MyTextarea:hover {
+.textarea:hover {
   cursor: default;
 }
 
-.MyTextarea:focus {
+.textarea:focus {
   outline: none;
 }

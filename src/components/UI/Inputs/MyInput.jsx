@@ -3,7 +3,7 @@ import classes from './MyInput.module.css'
 
 const MyInput = React.forwardRef((props, ref) => {
   return (
-    <input ref={ref} className={classes.MyInput} type='text' {...props} />
+    <input ref={ref} className={classes.input} type='text' {...props} />
   )
 })
 
