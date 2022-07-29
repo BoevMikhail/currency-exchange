@@ -3,7 +3,7 @@ import classes from './MyTextarea.module.css'
 
 const MyTextarea = (props) => {
   return (
-    <textarea className={classes.MyTextarea} {...props} />
+    <textarea className={classes.textarea} {...props} />
   )
 }
 

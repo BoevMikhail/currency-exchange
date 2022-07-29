@@ -1,4 +1,4 @@
-.MyInput {
+.input {
   width: 100%;
   min-width: 300px;
   padding: 10px 20px;
@@ -6,12 +6,11 @@
   border: 3px solid transparent;
 }
 
-.MyInput:hover,
-.MyInput:focus {
+.input:hover,
+.input:focus {
   border: 3px solid teal;
 }
 
-.MyInput:focus {
+.input:focus {
   outline: none;
 }
-

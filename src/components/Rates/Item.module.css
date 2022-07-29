@@ -1,0 +1,12 @@
+.item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1em;
+  line-height: 1.5em;
+  text-align: center;
+  border-bottom: 2px solid black;
+}
+
+.item span {
+  font-size: 1.25em;
+}

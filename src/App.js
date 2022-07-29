@@ -1,35 +1,30 @@
-import { BrowserRouter } from "react-router-dom"
-import AppRouter from "./components/AppRouter.jsx";
+import {BrowserRouter} from "react-router-dom"
+import AppRouter from "./pages/AppRouter.jsx";
 import Navbar from "./components/UI/Navbar/Navbar";
-import "./styles/App.css";
-import { CurrencyListContext } from "./context"
-import { useState, useEffect } from "react";
+import "./App.css";
+import {CurrencyListContext} from "./context"
+import {useState, useEffect} from "react";
 import CurrencyService from "./API/CurrencyService.js";
-import { useFetching } from "./hooks/useFetching.js";
+import {useFetching} from "./hooks/useFetching.js";
 
 function App() {
-  let [currList, setCurrList] = useState({});
+  const [currList, setCurrList] = useState({});
+  const currencyCurrent = useState('RUB');
 
   const [fetchCurrencies, isCurrenciesLoading] = useFetching(async () => {
     const response = await CurrencyService.getCurrencies();
-    setCurrList(response.rates);
-    sessionStorage.setItem('list', JSON.stringify(response.rates));
+    setCurrList(response);
   })
 
   useEffect(() => {
-    if (!sessionStorage.getItem('list')) {
-      fetchCurrencies();
-    } else {
-      setCurrList(JSON.parse(sessionStorage.getItem('list')))
-    }
+    fetchCurrencies();
   }, [])
-
-
 
   return (
     <CurrencyListContext.Provider value={{
       currList,
-      isCurrenciesLoading
+      isCurrenciesLoading,
+      currencyCurrent
     }}>
       <BrowserRouter>
         <Navbar />

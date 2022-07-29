@@ -1,26 +1,25 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import classes from './Navbar.module.css';
+import {linkList} from './linkList';
 
 const Navbar = () => {
   return (
-    <div className={classes.Navbar}>
-        <ul className={classes.Navbar__list}>
-            <li className={classes.Navbar__item}>
-                <NavLink className={({isActive}) => {
-                  const currClass = [classes.Navbar__link];
-                  if(isActive) currClass.push(classes.Navbar__linkActive);
-                  return currClass.join(' ')}}
-                  to='/exchanger' path='../../../pages/Exchanger.jsx'>Exchanger</NavLink>
-            </li>
-            <li className={classes.Navbar__item}>
-                <NavLink className={({isActive}) => {
-                  const currClass = [classes.Navbar__link];
-                  if(isActive) currClass.push(classes.Navbar__linkActive);
-                  return currClass.join(' ')}} to='/rates' path='../../../pages/Rates.jsx' >Rates</NavLink>
-            </li>
-        </ul>
-    </div>
+    <div className={classes.navbar}>
+
+      <ul className={classes.list}>
+        {linkList.map(linkItem =>
+          <li key={linkItem.name} className={classes.item}>
+            <NavLink className={({isActive}) => {
+              const currClass = [classes.link];
+              if (isActive) currClass.push(classes.link__current);
+              return currClass.join(' ')
+            }}
+              to={linkItem.to} path={linkItem.path}>{linkItem.name}</NavLink>
+          </li>)
+        }
+      </ul>
+    </div >
   )
 }
 
