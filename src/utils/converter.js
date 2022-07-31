@@ -1,14 +1,12 @@
 export const converter = (messageBody, currencyList, currency) => {
-  let amount = messageBody.match(/\d+.\d+/);
-  amount = amount ? amount : messageBody.match(/\d+/);
-  if (!amount) amount = 1;
+  let amount = (messageBody.match(/\d+.\d+/) ?? messageBody.match(/\d+/)) ?? 1;
 
   messageBody = messageBody.toUpperCase().replace('IN', '').match(/[A-Z]+/g);
   if (!messageBody) return 'Currencies not found';
   if (messageBody.length > 2) return `${ messageBody.join(', ') } - too many currencies`
 
-  let baseCurrency = messageBody.shift();
-  let requiredCurrency = messageBody.pop();
+  let baseCurrency = messageBody[0];
+  let requiredCurrency = messageBody[1];
 
   if (baseCurrency.length !== 3 && baseCurrency.length !== 6) return `'${ baseCurrency }' - not found. Currency must have 3 letter`
 
@@ -22,8 +20,12 @@ export const converter = (messageBody, currencyList, currency) => {
   }
 
   let errorMessage = '';
-  if (!Object.keys(currencyList).includes(baseCurrency)) errorMessage += `'${ baseCurrency }' `;
-  if (baseCurrency !== requiredCurrency) if (!Object.keys(currencyList).includes(requiredCurrency)) errorMessage += `'${ requiredCurrency }' `;
+
+  const baseIsNotInCurrencyList = !Object.keys(currencyList).includes(baseCurrency);
+  const requiredIsNotInCurrencyList = (baseCurrency !== requiredCurrency) && !Object.keys(currencyList).includes(requiredCurrency);
+
+  if (baseIsNotInCurrencyList) errorMessage += `'${ baseCurrency }' `;
+  if (requiredIsNotInCurrencyList) errorMessage += `'${ requiredCurrency }' `;
   if (errorMessage) return errorMessage + '- not found';
 
   const exchangeRate = (1 / currencyList[baseCurrency]) / (1 / currencyList[requiredCurrency]);

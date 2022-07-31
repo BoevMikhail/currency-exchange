@@ -5,6 +5,9 @@ export default class CurrencyService {
     const storage = sessionStorage.getItem('list');
 
     if (storage) {
+      if (storage === 'none') {
+        return CurrencyList.rates;
+      }
       return JSON.parse(storage);
     } else {
       let status;
@@ -18,7 +21,7 @@ export default class CurrencyService {
 
       //Only 250 requests per month, status 429 - limit is out
       if (status === 429) {
-        sessionStorage.setItem('list', JSON.stringify(CurrencyList.rates));
+        sessionStorage.setItem('list', 'none');
         return CurrencyList.rates
       };
 
