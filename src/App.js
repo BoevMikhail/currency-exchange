@@ -1,5 +1,5 @@
 import {BrowserRouter} from "react-router-dom"
-import AppRouter from "./pages/AppRouter.jsx";
+import AppRouter from "./AppRouter.jsx";
 import Navbar from "./components/UI/Navbar/Navbar";
 import "./App.css";
 import {CurrencyListContext} from "./context"
