@@ -1,5 +1,5 @@
 import React from 'react'
-import ExchangerForm from '../components/Exchanger/Form'
+import ExchangerForm from './Form'
 
 const Exchanger = () => {
   return (

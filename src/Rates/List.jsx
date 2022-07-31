@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import {CurrencyListContext} from '../../context'
+import {CurrencyListContext} from '../context'
 import RatesItem from './Item'
 import classes from './List.module.css'
 
