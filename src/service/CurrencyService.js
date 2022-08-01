@@ -2,8 +2,11 @@ import CurrencyList from './CurrencyList.json'
 
 export default class CurrencyService {
   static getCurrencies = async () => {
-
     const storage = sessionStorage.getItem('list');
+
+    if (!process.env.REACT_APP_API_KEY) {
+      return CurrencyList.rates;
+    }
 
     if (storage) {
       if (storage === 'none') {
@@ -16,7 +19,7 @@ export default class CurrencyService {
       const response = await fetch('https://api.apilayer.com/exchangerates_data/latest', {
         method: 'GET',
         redirect: 'follow',
-        headers: {'apikey': 'QS7et5WFDAORNCgSSuAt7MD0NTN6aZwd'}
+        headers: {'apikey': process.env.REACT_APP_API_KEY}
       })
         .then(response => {status = response.status; return response.json()})
 
