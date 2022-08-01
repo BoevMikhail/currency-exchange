@@ -1,10 +1,10 @@
 import {BrowserRouter} from "react-router-dom"
-import AppRouter from "./pages/AppRouter.jsx";
+import AppRouter from "./AppRouter.jsx";
 import Navbar from "./components/UI/Navbar/Navbar";
 import "./App.css";
 import {CurrencyListContext} from "./context"
 import {useState, useEffect} from "react";
-import CurrencyService from "./API/CurrencyService.js";
+import CurrencyService from "./service/CurrencyService.js";
 import {useFetching} from "./hooks/useFetching.js";
 
 function App() {
