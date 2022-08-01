@@ -22,8 +22,8 @@ export default class CurrencyService {
       redirect: 'follow',
       headers: {'apikey': CurrencyService.API_KEY}
     }).then(response => {
-      let isKeyLimit = response.status === 429;
 
+      let isKeyLimit = response.status === 429;
       if (isKeyLimit) {
         CurrencyService.USE_LOCAL = true;
         return CurrencyList.rates;
