@@ -1,38 +1,46 @@
 import CurrencyList from './CurrencyList.json'
 
-export default class CurrencyService {
-  static getCurrencies = async () => {
-    const storage = sessionStorage.getItem('list');
-    const API_KEY = process.env.REACT_APP_API_KEY;
 
-    if (!API_KEY) {
+
+export default class CurrencyService {
+
+  static API_KEY = process.env.REACT_APP_API_KEY;
+  static USE_LOCAL = this.API_KEY == null || false;
+
+  static getCurrencies = async () => {
+    if (CurrencyService.USE_LOCAL) {
+
       return CurrencyList.rates;
     }
 
-    if (storage) {
-      if (storage === 'limitIsOut') {
+    const storage = sessionStorage.getItem('list');
+    const isExistsInStorage = storage != null;
+    if (isExistsInStorage) {
+      return JSON.parse(storage);
+    }
+
+    const response = await fetch('https://api.apilayer.com/exchangerates_data/latest', {
+      method: 'GET',
+      redirect: 'follow',
+      headers: {'apikey': CurrencyService.API_KEY}
+    }).then(response => {
+      let isKeyLimit = response.status === 429;
+
+      if (isKeyLimit) {
+        CurrencyService.USE_LOCAL = true;
         return CurrencyList.rates;
       }
-      return JSON.parse(storage);
-    } else {
-      let status;
 
-      const response = await fetch('https://api.apilayer.com/exchangerates_data/latest', {
-        method: 'GET',
-        redirect: 'follow',
-        headers: {'apikey': API_KEY}
-      })
-        .then(response => {status = response.status; return response.json()})
+      return response.json().then(data => {
+        console.log(data)
+        const rates = data.rates;
+        sessionStorage.setItem('list', JSON.stringify(rates))
+        return rates;
+      });
+    })
 
-      //Only 250 requests per month, status 429 - limit is out
-      if (status === 429) {
-        sessionStorage.setItem('list', 'limitIsOut');
-        return CurrencyList.rates
-      };
+    return response;
 
-      sessionStorage.setItem('list', JSON.stringify(response.rates));
-      return response.rates;
-    }
   }
 }
 
