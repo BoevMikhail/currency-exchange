@@ -9,7 +9,7 @@ export default class CurrencyService {
     }
 
     if (storage) {
-      if (storage === 'none') {
+      if (storage === 'limitIsOut') {
         return CurrencyList.rates;
       }
       return JSON.parse(storage);
@@ -25,7 +25,7 @@ export default class CurrencyService {
 
       //Only 250 requests per month, status 429 - limit is out
       if (status === 429) {
-        sessionStorage.setItem('list', 'none');
+        sessionStorage.setItem('list', 'limitIsOut');
         return CurrencyList.rates
       };
 
