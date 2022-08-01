@@ -2,11 +2,15 @@ import CurrencyList from './CurrencyList.json'
 
 export default class CurrencyService {
   static getCurrencies = async () => {
-
     const storage = sessionStorage.getItem('list');
+    const API_KEY = process.env.REACT_APP_API_KEY;
+
+    if (!API_KEY) {
+      return CurrencyList.rates;
+    }
 
     if (storage) {
-      if (storage === 'none') {
+      if (storage === 'limitIsOut') {
         return CurrencyList.rates;
       }
       return JSON.parse(storage);
@@ -16,13 +20,13 @@ export default class CurrencyService {
       const response = await fetch('https://api.apilayer.com/exchangerates_data/latest', {
         method: 'GET',
         redirect: 'follow',
-        headers: {'apikey': 'QS7et5WFDAORNCgSSuAt7MD0NTN6aZwd'}
+        headers: {'apikey': API_KEY}
       })
         .then(response => {status = response.status; return response.json()})
 
       //Only 250 requests per month, status 429 - limit is out
       if (status === 429) {
-        sessionStorage.setItem('list', 'none');
+        sessionStorage.setItem('list', 'limitIsOut');
         return CurrencyList.rates
       };
 
