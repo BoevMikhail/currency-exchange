@@ -17,7 +17,7 @@ export default class CurrencyService {
       return JSON.parse(storage);
     }
 
-    const response = await fetch('https://api.apilayer.com/exchangerates_data/latest', {
+    return await fetch('https://api.apilayer.com/exchangerates_data/latest', {
       method: 'GET',
       redirect: 'follow',
       headers: {'apikey': CurrencyService.API_KEY}
@@ -35,11 +35,9 @@ export default class CurrencyService {
         sessionStorage.setItem('list', JSON.stringify(rates))
         return rates;
       });
-    })
-
-    return response;
-
+    });
   }
+
 }
 
 
