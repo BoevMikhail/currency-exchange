@@ -2,6 +2,7 @@ import CurrencyList from './CurrencyList.json'
 
 export default class CurrencyService {
   static getCurrencies = async () => {
+
     const storage = sessionStorage.getItem('list');
 
     if (storage) {
