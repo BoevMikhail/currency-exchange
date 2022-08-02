@@ -1,0 +1,8 @@
+.warning {
+  position: absolute;
+  left: 0;
+  right: 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgb(199, 0, 0);
+}
