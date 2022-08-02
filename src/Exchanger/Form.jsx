@@ -82,6 +82,12 @@ const ExchangerForm = () => {
   const debouncedChangeHandler = useMemo(() => debounce(validation, 300), []);
 
   useEffect(() => {
+    return () => {
+      debouncedChangeHandler.cancel();
+    };
+  }, []);
+
+  useEffect(() => {
     if (!isCurrenciesLoading) setResult("result");
   }, [isCurrenciesLoading]);
 
