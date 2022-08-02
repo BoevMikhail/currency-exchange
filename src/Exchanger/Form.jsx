@@ -79,7 +79,7 @@ const ExchangerForm = () => {
     );
   };
 
-  const debouncedChangeHandler = useMemo(() => debounce(validation, 300), []);
+  const debouncedValidation = useMemo(() => debounce(validation, 300), []);
 
   useEffect(() => {
     return () => {
@@ -97,7 +97,7 @@ const ExchangerForm = () => {
         <MyInput
           onChange={() => {
             setValid(false);
-            debouncedChangeHandler();
+            debouncedValidation();
           }}
           onKeyDown={(e) => {
             if (e.code === "Enter" && valid) exchange();
