@@ -7,6 +7,7 @@ import { converter } from "./service/converter";
 import classes from "./Form.module.css";
 import debounce from "lodash.debounce";
 import MyWarnings from "../components/UI/Warnings/MyWarnings";
+import throttle from "lodash.throttle";
 
 const ExchangerForm = () => {
   const { currList, isCurrenciesLoading, currencyCurrent } =
@@ -77,13 +78,16 @@ const ExchangerForm = () => {
         amount
       )
     );
+
+    setValid(false);
   };
 
   const debouncedValidation = useMemo(() => debounce(validation, 300), []);
+  const throttledSetFalse = throttle(() => setValid(false), 300);
 
   useEffect(() => {
     return () => {
-      debouncedChangeHandler.cancel();
+      debouncedValidation.cancel();
     };
   }, []);
 
@@ -96,7 +100,7 @@ const ExchangerForm = () => {
       <div style={{ width: "100%" }}>
         <MyInput
           onChange={() => {
-            setValid(false);
+            throttledSetFalse();
             debouncedValidation();
           }}
           onKeyDown={(e) => {
