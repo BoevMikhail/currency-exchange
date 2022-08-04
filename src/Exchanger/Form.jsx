@@ -56,7 +56,9 @@ const ExchangerForm = () => {
   };
 
   const exchange = () => {
-    const amount = request.current.value.match(/\d+\.?\d+/) ?? 1;
+    const amount = request.current.value.match(/\d+\.?\d*/) ?? 1;
+
+    console.log(amount);
     const listCurrenciesInInput = request.current.value
       .toUpperCase()
       .replace(/IN/g, "")
@@ -82,12 +84,17 @@ const ExchangerForm = () => {
     setValid(false);
   };
 
+  const setValidFalse = () => {
+    if (valid) setValid(false);
+  };
+
   const debouncedValidation = useMemo(() => debounce(validation, 300), []);
-  const throttledSetFalse = throttle(() => setValid(false), 300);
+  const throttledSetFalse = useMemo(() => throttle(setValidFalse, 300), []);
 
   useEffect(() => {
     return () => {
       debouncedValidation.cancel();
+      throttledSetFalse.cancel();
     };
   }, []);
 
