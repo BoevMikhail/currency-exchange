@@ -85,6 +85,13 @@ const ExchangerForm = () => {
   };
 
   useEffect(() => {
+    return () => {
+      debouncedValidation.cancel();
+    };
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
     if (!isCurrenciesLoading) setResult("result");
   }, [isCurrenciesLoading]);
 
