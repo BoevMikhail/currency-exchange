@@ -1,11 +1,11 @@
-import { BrowserRouter } from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
 import AppRouter from "./AppRouter.jsx";
 import Navbar from "./components/UI/Navbar/Navbar";
 import "./App.css";
-import { CurrencyListContext } from "./context";
-import { useState, useEffect } from "react";
+import {CurrencyListContext} from "./context";
+import {useState, useEffect} from "react";
 import CurrencyService from "./service/CurrencyService.js";
-import { useFetching } from "./hooks/useFetching.js";
+import {useFetching} from "./hooks/useFetching.js";
 
 function App() {
   const [currList, setCurrList] = useState({});
@@ -18,6 +18,7 @@ function App() {
 
   useEffect(() => {
     fetchCurrencies();
+    // eslint-disable-next-line
   }, []);
 
   return (

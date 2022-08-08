@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import React, {useContext} from "react";
 import CurrencyList from "./List";
 import MySelect from "../components/UI/Selects/MySelect";
-import { CurrencyListContext } from "../context";
+import {CurrencyListContext} from "../context";
 
 const Rates = () => {
-  const { currList, currencyCurrent } = useContext(CurrencyListContext);
+  const {currList, currencyCurrent} = useContext(CurrencyListContext);
   const [currency, setCurrency] = currencyCurrent;
 
   return (
@@ -17,7 +17,10 @@ const Rates = () => {
         defaultValue="Change currency"
         currencyList={currList}
       />
-      <CurrencyList currency={currency} currencyList={currList} />
+      <CurrencyList
+        currency={currency}
+        currencyList={currList}
+      />
     </div>
   );
 };

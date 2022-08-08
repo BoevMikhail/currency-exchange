@@ -1,6 +1,6 @@
 import React from "react";
-import { Navigate, Route, Routes } from "react-router";
-import { routes } from "./routes";
+import {Navigate, Route, Routes} from "react-router";
+import {routes} from "./routes";
 
 const AppRouter = () => {
   return (
@@ -12,7 +12,10 @@ const AppRouter = () => {
           element={<route.component />}
         />
       ))}
-      <Route path="*" element={<Navigate to="/exchanger" />} />
+      <Route
+        path="*"
+        element={<Navigate to="/exchanger" />}
+      />
     </Routes>
   );
 };

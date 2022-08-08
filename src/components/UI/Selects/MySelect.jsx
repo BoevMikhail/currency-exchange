@@ -1,14 +1,8 @@
 import React from "react";
-import { getExclusiveList } from "../../../utils/listSorting";
+import {getExclusiveList} from "../../../utils/listSorting";
 import classes from "./MySelect.module.css";
 
-const MySelect = ({
-  value,
-  onChange,
-  defaultValue,
-  currencyList,
-  description,
-}) => {
+const MySelect = ({value, onChange, defaultValue, currencyList, description}) => {
   const optionList = getExclusiveList(currencyList);
 
   return (

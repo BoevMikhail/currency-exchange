@@ -18,7 +18,7 @@ export default class CurrencyService {
     return await fetch("https://api.apilayer.com/exchangerates_data/latest", {
       method: "GET",
       redirect: "follow",
-      headers: { apikey: CurrencyService.API_KEY },
+      headers: {apikey: CurrencyService.API_KEY},
     }).then((response) => {
       let isKeyLimit = response.status === 429;
       if (isKeyLimit) {
@@ -27,7 +27,6 @@ export default class CurrencyService {
       }
 
       return response.json().then((data) => {
-        console.log(data);
         const rates = data.rates;
         sessionStorage.setItem("list", JSON.stringify(rates));
         return rates;
