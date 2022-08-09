@@ -1,11 +1,13 @@
 import React, {useContext} from "react";
 import {CurrencyListContext} from "../../context";
 import {converter} from "../../service/converter";
+import {answerResizer} from "../../utils/answerResizer";
 import RatesItem from "./Item";
 import classes from "./List.module.css";
 
 const RatesList = ({currency, currencyList}) => {
-  const {currList, isCurrenciesLoading} = useContext(CurrencyListContext);
+  const {isCurrenciesLoading, localVersion} = useContext(CurrencyListContext);
+  const [useLocal] = localVersion;
 
   return (
     <div>
@@ -16,7 +18,11 @@ const RatesList = ({currency, currencyList}) => {
             currencyList[currencyItem] !== currencyList[currency] && (
               <RatesItem
                 key={currencyItem}
-                rate={converter(currency, currencyItem, currList, 1, "bigAnswer")}
+                rate={
+                  useLocal
+                    ? converter(currency, currencyItem, 1, "bigAnswer")[0]
+                    : answerResizer(currencyList[currencyItem].toString(), "bigAnswer")
+                }
                 currencyItem={currencyItem}
               />
             )

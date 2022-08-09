@@ -1,6 +1,9 @@
+import {answerResizer} from "../utils/answerResizer";
+import fakeAnswer from "./CurrencyList.json";
 const bigDecimal = require("js-big-decimal");
 
-export const converter = (baseCurrency, requiredCurrency, currencyList, amount, typeOfAnswer) => {
+export const converter = (baseCurrency, requiredCurrency, amount, typeOfAnswer) => {
+  const currencyList = fakeAnswer.rates;
   let errorMessage = "";
   let error = false;
 
@@ -21,22 +24,7 @@ export const converter = (baseCurrency, requiredCurrency, currencyList, amount, 
   const exchangeRate = bigDecimal.divide(baseCurrencyRate, requiredCurrencyRate, 20);
   let result = bigDecimal.multiply(amount, exchangeRate);
 
-  if (typeOfAnswer === "smallAnswer") {
-    const resultSmall = result.match(/^0\.0/);
-    if (resultSmall) {
-      const manyZeros = new RegExp(/0\.0*\d\d?/);
-      result = result.match(manyZeros);
-    } else {
-      // need result with 2 or 0 digits after dot
-      result = result.match(/\d*(\.\d\d?)?/)[0];
-      if (result.match(/\.\d$/)) result += 0;
-      if (result.match(/\.00/)) result = result.slice(0, -3);
-    }
-  }
-
-  if (typeOfAnswer === "bigAnswer") {
-    result = result.slice(0, 10);
-  }
+  result = answerResizer(result, typeOfAnswer);
 
   return [result, error];
 };
