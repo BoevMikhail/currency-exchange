@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
+import MySelect from "../../components/UI/Selects/MySelect";
+import {CurrencyListContext} from "../../context";
 import CurrencyList from "./List";
-import MySelect from "../components/UI/Selects/MySelect";
-import {CurrencyListContext} from "../context";
 
 const Rates = () => {
   const {currList, currencyCurrent} = useContext(CurrencyListContext);
