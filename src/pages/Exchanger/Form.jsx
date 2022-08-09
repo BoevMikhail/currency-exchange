@@ -1,12 +1,12 @@
 import debounce from "lodash.debounce";
 import React, {useContext, useEffect, useMemo, useRef, useState} from "react";
-import MyButton from "../components/UI/Buttons/MyButton";
-import MyInput from "../components/UI/Inputs/MyInput";
-import MyTextarea from "../components/UI/Textareas/MyTextarea";
-import MyWarnings from "../components/UI/Warnings/MyWarnings";
-import {CurrencyListContext} from "../context";
+import MyButton from "../../components/UI/Buttons/MyButton";
+import MyInput from "../../components/UI/Inputs/MyInput";
+import MyTextarea from "../../components/UI/Textareas/MyTextarea";
+import MyWarnings from "../../components/UI/Warnings/MyWarnings";
+import {CurrencyListContext} from "../../context";
 import classes from "./Form.module.css";
-import {converter} from "./service/converter";
+import {converter} from "../../service/converter";
 
 const ExchangerForm = () => {
   const {currList, isCurrenciesLoading, currencyCurrent} = useContext(CurrencyListContext);
@@ -79,9 +79,24 @@ const ExchangerForm = () => {
       listCurrenciesInInput[0] = listCurrenciesInInput[0].slice(0, 3);
     }
 
-    setResult(converter(listCurrenciesInInput[0], listCurrenciesInInput[1], currList, amount));
+    const converterAnswer = converter(
+      listCurrenciesInInput[0],
+      listCurrenciesInInput[1],
+      currList,
+      amount,
+      "smallAnswer"
+    );
 
-    setValid(false);
+    const converterError = converterAnswer[1];
+    if (converterError) {
+      setResult(converterAnswer[0]);
+    } else {
+      setResult(
+        `${amount} ${listCurrenciesInInput[0]} = ${converterAnswer[0]} ${listCurrenciesInInput[1]}`
+      );
+
+      setValid(false);
+    }
   };
 
   useEffect(() => {

@@ -1,5 +1,5 @@
-import Exchanger from "../Exchanger/Exchanger";
-import Rates from "../Rates/Rates";
+import Exchanger from "../pages/Exchanger/Exchanger";
+import Rates from "../pages/Rates/Rates";
 
 export const routes = [
   {path: "/exchanger", component: Exchanger},

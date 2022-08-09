@@ -4,7 +4,7 @@ import classes from "./Item.module.css";
 const RatesItem = ({currencyItem, rate}) => {
   return (
     <div className={classes.item}>
-      <span>{rate}</span>
+      <span>{rate[0]}</span>
       <span>{currencyItem}</span>
     </div>
   );
