@@ -92,7 +92,7 @@ const ExchangerForm = () => {
       setResult(converterAnswer[0]);
     } else {
       setResult(
-        `${amount} ${listCurrenciesInInput[0]} = ${converterAnswer[0]} ${listCurrenciesInInput[1]}`
+        `${amount} ${listCurrenciesInInput[0]} \n ${converterAnswer[0]} ${listCurrenciesInInput[1]}`
       );
 
       setValid(false);
