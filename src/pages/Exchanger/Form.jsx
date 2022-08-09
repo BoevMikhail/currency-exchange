@@ -7,15 +7,27 @@ import MyWarnings from "../../components/UI/Warnings/MyWarnings";
 import {CurrencyListContext} from "../../context";
 import classes from "./Form.module.css";
 import {converter} from "../../service/converter";
+import {useFetching} from "../../hooks/useFetching.js";
+import CurrencyService from "../../service/CurrencyService.js";
+import {answerResizer} from "../../utils/answerResizer";
 
 const ExchangerForm = () => {
-  const {currList, isCurrenciesLoading, currencyCurrent} = useContext(CurrencyListContext);
+  const {isCurrenciesLoading, currencyCurrent, localVersion} = useContext(CurrencyListContext);
+  const [useLocal, setUseLocal] = localVersion;
   const [currency] = currencyCurrent;
   const request = useRef();
   const [result, setResult] = useState("Currencies is loading...");
   const [valid, setValid] = useState(false);
   const [warning, setWarning] = useState("");
-
+  const [exchangeCurrencies] = useFetching(async (amount, from, to, setLocal) => {
+    const response = await CurrencyService.exchangeCurrencies(amount, from, to, setLocal);
+    if (Array.isArray(response)) {
+      setResult(response[0]);
+    } else {
+      const correctResponse = answerResizer(response.toString(), "smallAnswer");
+      setResult(`${amount} ${from} \n ${correctResponse} ${to}`);
+    }
+  });
   const debouncedValidation = useMemo(
     () =>
       debounce((messageBody) => {
@@ -64,6 +76,7 @@ const ExchangerForm = () => {
   };
 
   const exchange = () => {
+    if (!useLocal) setValid(false);
     const amount = request.current.value.match(/\d+\.?\d*/) ?? 1;
     const listCurrenciesInInput = request.current.value
       .toUpperCase()
@@ -79,23 +92,25 @@ const ExchangerForm = () => {
       listCurrenciesInInput[0] = listCurrenciesInInput[0].slice(0, 3);
     }
 
-    const converterAnswer = converter(
-      listCurrenciesInInput[0],
-      listCurrenciesInInput[1],
-      currList,
-      amount,
-      "smallAnswer"
-    );
-
-    const converterError = converterAnswer[1];
-    if (converterError) {
-      setResult(converterAnswer[0]);
-    } else {
-      setResult(
-        `${amount} ${listCurrenciesInInput[0]} \n ${converterAnswer[0]} ${listCurrenciesInInput[1]}`
+    if (useLocal) {
+      const converterAnswer = converter(
+        listCurrenciesInInput[0],
+        listCurrenciesInInput[1],
+        amount,
+        "smallAnswer"
       );
 
-      setValid(false);
+      const converterError = converterAnswer[1];
+      if (converterError) {
+        setResult(converterAnswer[0]);
+      } else {
+        setResult(
+          `${amount} ${listCurrenciesInInput[0]} \n ${converterAnswer[0]} ${listCurrenciesInInput[1]}`
+        );
+      }
+    } else {
+      setResult("Currency exchanging...");
+      exchangeCurrencies(amount, listCurrenciesInInput[0], listCurrenciesInInput[1], setUseLocal);
     }
   };
 

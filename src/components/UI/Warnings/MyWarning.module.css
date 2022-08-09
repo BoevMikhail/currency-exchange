@@ -6,3 +6,10 @@
   font-weight: 700;
   color: rgb(199, 0, 0);
 }
+
+.local {
+  position: fixed;
+  right: 0;
+  color: white;
+  background-color: brown;
+}
